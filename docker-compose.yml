@@ -1,0 +1,34 @@
+
+
+services:
+  gateway:
+    container_name: gateway-api-container
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - auth
+      # - service3
+    environment:
+      - AUTH_API_URL=http://auth:3001 # URL сервиса аутентификации
+      # - SERVICE3_URL=http://service3:3002 # URL нового сервиса
+    networks:
+      - app-network
+
+  auth:
+    container_name: auth-api-container
+    build:
+      context: ./login
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - ENV=production
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
