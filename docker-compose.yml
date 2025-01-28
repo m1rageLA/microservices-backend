@@ -12,7 +12,6 @@ services:
       # - service3
     environment:
       - AUTH_API_URL=http://auth:3001 # URL сервиса аутентификации
-      # - SERVICE3_URL=http://service3:3002 # URL нового сервиса
     networks:
       - app-network
 
