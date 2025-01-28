@@ -1,6 +1,7 @@
-import { Controller, Get, Inject } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 // import { AppService } from './app.service';
 import { ClientProxy } from '@nestjs/microservices';
+import { LogoDto } from './dto/login.dt';
 
 @Controller()
 export class AppController {
@@ -12,5 +13,11 @@ export class AppController {
   @Get('ping')
   async pingUsers() {
     return this.authService.send({ cmd: 'ping' }, {});
+  }
+
+  @Post('login')
+  async loginUser(@Body() data: LogoDto) {
+    console.log('HTTP request to /login received:', data);
+    return this.authService.send({ cmd: 'login' }, data);
   }
 }

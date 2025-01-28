@@ -12,4 +12,10 @@ export class AppController {
     console.log('Ping message received');
     return this.appService.handlePing();
   }
+
+  @MessagePattern({ cmd: 'login' })
+  async loginUser(data: { username: string; password: string }) {
+    console.log('Login message received');
+    return this.appService.loginUser(data);
+  }
 }
